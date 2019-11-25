@@ -1,0 +1,385 @@
+* Minor settings
+** subword
+#+BEGIN_SRC emacs-lisp
+(global-subword-mode 1)
+#+END_SRC
+** electric
+#+BEGIN_SRC emacs-lisp
+  (setq electric-pair-pairs '(
+                              (?\( . ?\))
+                              (?\[ . ?\])
+                              ))
+  (electric-pair-mode t)
+
+#+END_SRC
+** show lines and columns on the mode-line
+#+BEGIN_SRC emacs-lisp
+  (line-number-mode 1)
+  (column-number-mode 1)
+
+#+END_SRC
+** clock
+#+BEGIN_SRC emacs-lisp
+  (setq display-time-24hr-format t)
+  (display-time-mode 1)
+
+#+END_SRC
+* Terminal
+** setting default shell to bash
+#+BEGIN_SRC emacs-lisp
+  (defvar my-term-shell "/bin/bash")
+  (defadvice ansi-term (before force-bash)
+    (interactive (list my-term-shell)))
+  (ad-activate 'ansi-term)
+
+#+END_SRC
+* exwm
+#+BEGIN_SRC emacs-lisp
+  (use-package exwm
+    :ensure t
+    :config
+    (require 'exwm-config)
+    (exwm-config-default))
+
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (require 'exwm-systemtray)
+  (exwm-systemtray-enable)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "s-k") 'exwm-workspace-delete)
+(global-set-key (kbd "s-w") 'exwm-workspace-swap)
+
+#+END_SRC
+* Org
+** Org-Bullets
+#+BEGIN_SRC emacs-lisp
+  (use-package org-bullets
+    :ensure t
+    :config
+    (add-hook 'org-mode-hook (lambda () (org-bullets-mode)))) 
+
+#+END_SRC
+** basic config
+#+BEGIN_SRC emacs-lisp
+  (setq org-src-window-setup 'current-window)
+  (add-to-list 'org-structure-template-alist
+               '("el" "#+BEGIN_SRC emacs-lisp\n?\n#+END_SRC"))
+
+#+END_SRC
+* IDO
+** enable ido mode
+#+BEGIN_SRC emacs-lisp
+  (setq ido-enable-flex-matching nil)
+  (setq ido-create-new-buffer 'always)
+  (setq ido-everywhere t)
+  (ido-mode 1)
+
+#+END_SRC
+** ido vertical
+#+BEGIN_SRC emacs-lisp
+  (use-package ido-vertical-mode
+    :ensure t
+    :init
+    (ido-vertical-mode 1))
+  (setq ido-vertical-define-keys 'C-n-and-C-p-only)
+
+#+END_SRC
+** smex
+#+BEGIN_SRC emacs-lisp
+  (use-package smex
+    :ensure t
+    :init(smex-initialize)
+    :bind
+    ("M-x" . smex))
+#+END_SRC
+** switch buffers
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-x C-b") 'ido-switch-buffer)
+
+#+END_SRC
+* Dashboard
+#+BEGIN_SRC emacs-lisp
+  (use-package dashboard
+    :ensure t
+    :config
+    (dashboard-setup-startup-hook)
+    (setq dashboard-items '((recents . 10)))
+    (setq dashboard-banner-logo-title "Emacs is awesome !!!!!!!!"))
+
+#+END_SRC
+* Buffers
+** kill all buffers
+#+BEGIN_SRC emacs-lisp
+  (defun kill-all-buffers ()
+    (interactive)
+    (mapc 'kill-buffer (buffer-list)))
+  (global-set-key (kbd "C-M-s-k") 'kill-all-buffers)
+
+#+END_SRC
+** enable ibuffer
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-x b") 'ibuffer)
+
+#+END_SRC
+** expert mode
+#+BEGIN_SRC emacs-lisp
+  (setq ibuffer-expert t)
+
+#+END_SRC
+* avy
+#+BEGIN_SRC emacs-lisp
+  (use-package avy
+    :ensure t
+    :bind
+    ("M-s" . avy-goto-char))
+
+#+END_SRC
+* config edit/reload
+** edit
+#+BEGIN_SRC emacs-lisp
+  (defun config-visit ()
+    (interactive)
+    (find-file "~/.emacs.d/config.org"))
+  (global-set-key (kbd "C-c e") 'config-visit)
+
+#+END_SRC
+
+** reload
+#+BEGIN_SRC emacs-lisp
+  (defun config-reload ()
+    (interactive)
+    (org-babel-load-file(expand-file-name "~/.emacs.d/config.org")))
+  (global-set-key (kbd "C-c r") 'config-reload)
+
+#+END_SRC
+
+* rainbow
+#+BEGIN_SRC emacs-lisp
+  (use-package rainbow-mode
+    :ensure t
+    :init (add-hook 'prog-mode-hook 'rainbow-mode))
+
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (use-package rainbow-delimiters
+    :ensure t
+    :init
+    ;;;(add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
+    (rainbow-delimiters-mode 1))
+
+#+END_SRC
+* switch-window
+#+BEGIN_SRC emacs-lisp
+  (use-package switch-window
+    :ensure t
+    :config
+    (setq switch-window-input-style 'minibuffer)
+    (setq switch-window-increase 4)
+    (setq switch-window-threshold 2)
+    (setq switch-window-shortcut-style 'qwerty)
+    (setq switch-window-qwerty-shortcuts
+          ("a" "s" "d" "f" "h" "j" "k" "l"))
+    :bind
+    ([remap other-window] . switch-window))
+
+#+END_SRC
+
+* window switching function
+#+BEGIN_SRC emacs-lisp
+  (defun split-and-follow-horizontally ()
+    (interactive)
+    (split-window-below)
+    (balance-windows)
+    (other-window 1))
+  (global-set-key (kbd "C-x 2") 'split-and-follow-horizontally)
+
+  (defun split-and-follow-vertically ()
+    (interactive)
+    (split-window-right)
+    (balance-windows)
+    (other-window 1))
+  (global-set-key (kbd "C-x 3") 'split-and-follow-vertically) 
+
+#+END_SRC
+* convenient function
+** kill whole word
+#+BEGIN_SRC emacs-lisp
+  (defun kill-whole-word ()
+    (interactive)
+    (backward-word)
+    (kill-word 1))
+  (global-set-key (kbd "C-c w w") 'kill-whole-word)
+
+#+END_SRC
+** copy whole line
+#+BEGIN_SRC emacs-lisp
+  (defun copy-whole-line ()
+    (interactive)
+    (save-excursion
+      (kill-new
+       (buffer-substring
+        (point-at-bol)
+        (point-at-eol)))))
+  (global-set-key (kbd "C-c w l") 'copy-whole-line)
+
+#+END_SRC
+* hungry delete
+#+BEGIN_SRC emacs-lisp
+  (use-package hungry-delete
+    :ensure t
+    :config (global-hungry-delete-mode))
+
+#+END_SRC
+* auto completion
+#+BEGIN_SRC emacs-lisp
+  (use-package company
+    :ensure t
+    :init
+    (add-hook 'after-init-hook 'global-company-mode))
+
+
+#+END_SRC
+
+* modeline
+** space line
+#+BEGIN_SRC emacs-lisp
+  (use-package spaceline
+    :ensure t
+    :config
+    (require 'spaceline-config)
+    (setq powerline-deafault-separator (quote arrow))
+    (spaceline-spacemacs-theme))
+#+END_SRC
+** diminish
+#+BEGIN_SRC emacs-lisp
+  (use-package diminish
+    :ensure t
+    :init
+    (diminish 'hungry-delete-mode)
+    (diminish 'beacon-mode)
+    (diminish 'which-key-mode)
+    (diminish 'subword-mode)
+    (diminish 'rainbow-mode))
+#+END_SRC
+* dmenu
+#+BEGIN_SRC emacs-lisp
+  (use-package dmenu
+    :ensure t
+    :bind
+    ("s-SPC" . 'dmenu))
+#+END_SRC
+* symon
+#+BEGIN_SRC emacs-lisp
+  (use-package symon
+    :ensure t
+    :bind
+    ("s-h" . symon-mode))
+#+END_SRC
+* auctex
+#+BEGIN_SRC emacs-lisp
+  (setq TeX-auto-save t)
+  (setq TeX-parse-self t)
+  (setq-default TeX-master nil)
+#+END_SRC
+* pop-up kill ring
+#+BEGIN_SRC emacs-lisp
+  (use-package popup-kill-ring
+    :ensure t
+    :bind("M-y" . popup-kill-ring))
+#+END_SRC
+
+* mark-multiple
+#+BEGIN_SRC emacs-lisp
+  (use-package mark-multiple
+    :ensure t
+    :bind ("C-c q" . 'mark-next-like-this))
+#+END_SRC
+* expand-region
+#+BEGIN_SRC emacs-lisp
+  (use-package expand-region
+    :ensure t
+    :bind("C-q" . 'er/expand-region))
+#+END_SRC
+
+* org-indent
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'org-mode-hook 'org-indent-mode)
+#+END_SRC
+* fly check
+#+BEGIN_SRC emacs-lisp
+  (use-package flycheck
+    :ensure t
+    :init
+    (global-flycheck-mode t))
+#+END_SRC
+* julia mode
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'load-path "/home/durbar/Documents/julia-emacs/")
+  (require 'julia-mode)
+#+END_SRC
+* yasnippet
+#+BEGIN_SRC emacs-lisp
+  (use-package yasnippet
+    :ensure t
+    :config
+    (use-package yasnippet-snippets
+      :ensure t))
+#+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (require 'yasnippet)
+  (yas-global-mode 1)
+  (yas-reload-all)
+#+END_SRC
+* swiper
+#+BEGIN_SRC emacs-lisp
+  (use-package swiper
+    :ensure t
+    :bind ("C-s" . 'swiper))
+#+END_SRC
+* slime
+#+BEGIN_SRC emacs-lisp
+  (use-package slime
+    :ensure t)
+#+END_SRC
+** slime config
+#+BEGIN_SRC emacs-lisp
+  (setq inferior-lisp-program "/usr/bin/sbcl")
+  (setq slime-contribs '(slime-fancy))
+#+END_SRC
+* python-interaction
+#+BEGIN_SRC emacs-lisp
+  (setq python-shell-interpreter "/home/durbar/anaconda3/bin/ipython"
+        python-shell-interpreter-args "--simple-prompt -i")
+#+END_SRC
+* org-babel-python
+#+BEGIN_SRC emacs-lisp
+  (setq org-babel-python-command "/home/durbar/anaconda3/bin/python")
+#+END_SRC
+* org-python
+#+BEGIN_SRC emacs-lisp
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((python . t)))
+#+END_SRC
+* paredit
+#+BEGIN_SRC emacs-lisp
+  (use-package paredit
+    :ensure t)
+#+END_SRC
+* julia-repl
+#+BEGIN_SRC emacs-lisp
+  (use-package julia-repl
+    :ensure t)
+  (require 'julia-repl)
+#+END_SRC
+* geiser
+#+BEGIN_SRC emacs-lisp
+  (use-package geiser
+    :ensure t)
+  (setq geiser-active-implementations '(guile))
+#+END_SRC
+
