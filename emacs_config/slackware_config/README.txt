@@ -1,0 +1,1 @@
+slackware emacs config
