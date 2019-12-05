@@ -1,0 +1,17 @@
+
+xTerm.termName: xterm-256color
+
+xterm*background: black
+
+xterm*foreground: cornflowerblue
+
+XTerm.vt100.faceName: DejaVu Sans Mono:size=12:antialias=false
+
+
+URxvt.font: xft:monospace:size=12
+URxvt.scrollBar: false
+URxvt.background: black
+URxvt.foreground: cornflowerblue
+URxvt.inheritPixmap: True
+URxvt.shading: 5
+
