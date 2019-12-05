@@ -1,0 +1,315 @@
+NoGrabServer
+#NoDefaults
+RestartPreviousState
+DecorateTransients
+TitleFont "-adobe-helvetica-bold-r-normal--*-120-*-*-*-*-*-*"
+ResizeFont "-adobe-helvetica-bold-r-normal--*-120-*-*-*-*-*-*"
+MenuFont "-adobe-helvetica-bold-r-normal--*-120-*-*-*-*-*-*"
+IconFont "-adobe-helvetica-bold-r-normal--*-100-*-*-*-*-*-*"
+IconManagerFont "-adobe-helvetica-bold-r-normal--*-100-*-*-*"
+#ClientBorderWidth 2
+BorderWidth 1
+ButtonIndent 2
+NoHighlight
+AutoRelativeResize
+DefaultBackground
+FramePadding 0
+#ForceIcons
+NoRaiseOnMove
+OpaqueMove
+Zoom 500
+
+#added later
+UsePPosition on
+RandomPlacement
+
+
+
+# Color
+# {
+# BorderColor "navy"
+# DefaultBackground "darkblue"
+# DefaultForeground "gray85"
+# TitleBackground "navyblue"
+# TitleForeground "gray85"
+# MenuBackground "midnightblue"
+# MenuForeground "gray85"
+# MenuTitleBackground "gray65"
+# MenuTitleForeground "darkblue"
+# IconBackground "darkblue"
+# IconForeground "gray60"
+# IconBorderColor "darkblue"
+# IconManagerBackground "navy"
+# IconManagerForeground "gray85"
+# PointerForeground "navy"
+# PointerBackground "white"
+
+# }
+
+Color
+{
+BorderColor "cornflowerblue"
+DefaultBackground "cornflower blue"
+DefaultForeground "black"
+TitleBackground "cornflower blue"
+TitleForeground "black"
+MenuBackground "cornflower blue"
+MenuForeground "black"
+MenuTitleBackground "cornflower blue"
+MenuTitleForeground "black"
+IconBackground "cornflower blue"
+IconForeground "black"
+IconBorderColor "black"
+IconManagerBackground "cornflower blue"
+IconManagerForeground "black"
+PointerForeground "black"
+PointerBackground "cornflower blue"
+
+}
+
+# Color
+# {
+# BorderColor "cornflower blue"
+# DefaultBackground "white"
+# DefaultForeground "black"
+# TitleBackground "white"
+# TitleForeground "black"
+# MenuBackground "white"
+# MenuForeground "black"
+# MenuTitleBackground "white"
+# MenuTitleForeground "black"
+# IconBackground "white"
+# IconForeground "black"
+# IconBorderColor "black"
+# IconManagerBackground "white"
+# IconManagerForeground "black"
+# PointerForeground "black"
+# PointerBackground "white"
+
+# }
+
+# Color
+# {
+# BorderColor "black"
+# DefaultBackground "black"
+# DefaultForeground "green"
+# TitleBackground "black"
+# TitleForeground "green"
+# MenuBackground "black"
+# MenuForeground "green"
+# MenuTitleBackground "black"
+# MenuTitleForeground "green"
+# IconBackground "black"
+# IconForeground "green"
+# IconBorderColor "green"
+# IconManagerBackground "black"
+# IconManagerForeground "green"
+# PointerForeground "green"
+# PointerBackground "black"
+
+# }
+
+Color
+{
+BorderColor "rgb:C/C/4"
+DefaultBackground "rgb:0/0/0"
+DefaultForeground "rgb:F/F/F"
+TitleBackground "rgb:3/3/3"
+TitleForeground "rgb:C/A/0"
+MenuBackground "rgb:2/2/2"
+MenuForeground "rgb:C/4/0"
+MenuTitleBackground "rgb:4/4/4"
+MenuTitleForeground "rgb:F/F/0"
+IconBackground "rgb:4/4/4"
+IconForeground "rgb:C/A/0"
+IconBorderColor "rgb:4/4/4"
+IconManagerBackground "rgb:4/4/4"
+IconManagerForeground "rgb:C/C/4"
+PointerForeground "navy"
+PointerBackground "white"
+#Added later
+MenuBorderColor "rgb:F/F/0"
+}
+
+#This for hiding the ugly menubar in windows who dont need em.
+
+NoTitle
+{
+"TWM Icon Manager"
+# "VirtualBox"
+#"x11amp"
+"xlogo"
+"xclock"
+#"stalonetray"
+}
+
+IconManagerShow {
+"*"
+}
+
+IconManagerDontShow
+{
+"Oracle VM VirtualBox Manager"
+}
+DontIconfiyByUnmapping {
+"Oracle VM VirtualBox Manager"
+}
+
+ShowIconManager
+IconRegion "200x300+950+2" North East 50 50
+IconifyByUnmapping # just use icon manager
+
+MoveDelta 1
+Function "move-or-lower" { f.move f.deltastop f.lower }
+Function "move-or-raise" { f.move f.deltastop f.raise }
+Function "move-or-iconify" { f.move f.deltastop f.iconify }
+
+Button1 = : root : f.menu "defops"
+
+Button2 = : root : f.delete
+Button3 = : root : f.menu "Progs"
+
+
+
+Button1 = m : window|icon : f.function "move-or-lower"
+Button2 = m : window|icon : f.iconify
+Button3 = m : window|icon : f.function "move-or-raise"
+
+Button1 = : title : f.function "move-or-raise"
+Button2 = : title : f.raiselower
+Button3 = : title : f.lower
+
+Button1 = : icon : f.function "move-or-iconify"
+Button2 = : icon : f.iconify
+
+Button1 = : iconmgr : f.iconify
+Button2 = : iconmgr : f.iconify
+"Tab" = m : all : f.downiconmgr
+menu "defops"
+{
+"Twm" f.title
+"Iconify" f.iconify
+"Resize" f.resize
+"Move" f.move
+"Raise" f.raise
+"Lower" f.lower 
+"" f.nop 
+
+"Focus" f.focus 
+"Unfocus" f.unfocus 
+"Show Iconmgr" f.showiconmgr 
+"Hide Iconmgr" f.hideiconmgr
+"Maximize" f.fullzoom
+"Minimixe" f.iconify 
+"" f.nop
+"" f.nop
+#"Xterm" f.exec "exec xterm -bg midnightblue -fg white &"
+#"Xterm" f.exec "exec xterm -bg black -fg yellow &"
+#"Xterm" f.exec "exec xterm -bg black -fg green &"
+#"Xterm" f.exec "exec xterm -bg black -fg cornflowerblue &"
+"Xterm" f.exec "exec xterm &"
+"St" f.exec "exec st &"
+"URxvt" f.exec "exec urxvt &"
+"" f.nop
+"" f.nop
+"Kill" f.destroy
+"Delete" f.delete
+"" f.nop
+"Lock Screen" f.exec "exec xscreensaver-command -lock &"
+"" f.nop
+"Restart" f.restart
+"Exit" f.quit
+}
+
+
+
+#IconManagers
+#{
+#	"URxvt" "=300x5+800+5" 5
+#	"emacs"	"=300x5+800+5" 1
+#	"Xterm" "=300x5+800+5" 5 
+#}
+
+
+menu "Progs"
+{
+"Apps" f.title
+"Terminal" f.exec "exec xfce4-terminal &"
+"Firefox" f.exec "exec firefox &"
+"Emacs" f.exec "exec emacs &"
+"Xfe" f.exec "exec xfe &"
+"Thunar" f.exec "exec thunar &"
+"" f.nop
+"Analytics" f.menu "Analytics"
+"Browsers" f.menu "Browsers"
+"Terminals" f.menu "Terminals"
+"Development" f.menu "Development"
+"" f.nop
+"Hosts" f.menu "Hosts"
+"Utils" f.menu "Utils"
+"" f.nop
+"Window Ops" f.menu "windowmenu"
+
+}
+
+
+menu "Development"
+{ "Dev Tools" f.title
+"Eclipse" f.exec "exec /opt/eclipse/eclipse &"
+"DbVisualizer" f.exec "exec /opt/DbVisualizer/dbvis &"
+}
+
+menu "Analytics"
+
+{
+"Analytical Tools" f.title
+"KNIME" f.exec "exec /usr/bin/knime&"
+"rstudio" f.exec "exec /usr/bin/rstudio&"
+
+}
+
+
+menu "Browsers"
+{
+"Web Browsers" f.title
+"Firefox" f.exec "exec firefox &"
+
+"Thunderbird" f.exec "exec thunderbird &"
+
+}
+
+
+menu "Terminals"
+{ "Terms" f.title
+  "XTerm" f.exec "exec xterm &" 
+  "XFCE" f.exec "exec xfce4-terminal &"
+  "rxvt" f.exec "exec rxvt &"
+  "konsole" f.exec "exec konsole &"
+  }
+  menu "Utils"
+  {
+  "System Utils" f.title
+  "VirtualBox" f.exec "exec /usr/bin/VirtualBox -geometry 100x500-600+50 &"
+  "Start Xscreensaver" f.exec "exec xscreensaver &"
+  "Lock Screen" f.exec "exec xscreensaver-command -lock &"
+  "K-Calc" f.exec "exec kcalc&"
+
+}
+
+
+
+menu "Hosts"
+{ "Remote Hosts" f.title
+"hadoop@p" f.exec "exec xterm -T hadoop@p -e 'ssh -Y hadoop@p'&"
+"biadmin@p" f.exec "exec xterm -T biadmin@p -e 'ssh -Y biadmin@b'&"
+"analytics@d" f.exec "exec xterm -T analytics@d -e 'ssh -Y analytics@d'&"
+}
+
+menu "windowmenu"
+{
+"Iconify" f.iconify
+"RaiseLower" f.raiselower
+"Refresh" f.winrefresh
+"Focus" f.focus
+"" f.nop
+"Kill" f.destroy }
