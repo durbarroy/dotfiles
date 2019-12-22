@@ -1,0 +1,147 @@
+# A .twmrc file personalized by durbar
+UsePPosition on
+#RandomPlacement #Grid before xclient coming
+NoGrabServer
+OpaqueMove
+RestartPreviousState
+DecorateTransients
+
+#ClientBorderWidth
+BorderWidth 1
+ButtonIndent 2
+#NoHighlight
+AutoRelativeResize
+DefaultBackground
+FramePadding 0
+NoRaiseOnMove
+Zoom 100
+#NoDefaults
+
+TitleFont			"-*-fixed-medium-r-*-*-10-*-*-*-*-*-*-*"
+ResizeFont			"-*-fixed-medium-r-*-*-10-*-*-*-*-*-*-*"
+MenuFont				"-*-fixed-medium-r-*-*-10-*-*-*-*-*-*-*"
+IconFont				"-*-fixed-medium-r-*-*-10-*-*-*-*-*-*-*"
+IconManagerFont		"-*-fixed-medium-r-*-*-10-*-*-*-*-*-*-*"
+
+Color {
+   DefaultBackground     "rgb:0/0/0"
+   DefaultForeground     "rgb:F/F/F"
+   BorderColor           "rgb:C/C/4"
+   TitleBackground       "rgb:3/3/3"
+   TitleForeground       "rgb:C/A/0"
+   MenuBackground        "rgb:2/2/2"
+   MenuForeground        "rgb:C/A/0"
+   MenuBorderColor       "rgb:F/F/0"
+   MenuTitleBackground   "rgb:4/4/4"
+   MenuTitleForeground   "rgb:F/F/0"
+   IconBackground        "rgb:4/4/4"
+   IconForeground        "rgb:C/A/0"
+   IconBorderColor       "rgb:4/4/4"
+   IconManagerBackground "rgb:4/4/4"
+   IconManagerForeground "rgb:C/C/4"
+}
+
+NoTitle { "stalonetray"
+	  "TWM Icon Manager"
+          "xlogo"
+          "xclock"
+           }
+
+# Define some useful functions for motion-based actions.
+MoveDelta 1
+Function "move-or-lower" { f.move f.deltastop f.lower }
+Function "move-or-raise" { f.move f.deltastop f.raise }
+Function "move-or-iconify" { f.move f.deltastop f.iconify }
+
+# Set some useful bindings.  Sort of uwm-ish, sort of simple-button-ish
+#LeftTitleButton ":iconify" = f.iconify
+#RightTitleButton ":resize" = f.resize
+
+Button1 =   : root        : f.menu "MainMenu"
+
+Button1 = m : window|icon : f.function "move-or-lower"
+Button2 = m : window|icon : f.iconify
+Button3 = m : window|icon : f.function "move-or-raise"
+
+Button1 =   : title       : f.function "move-or-raise"
+Button2 =   : title       : f.raiselower
+Button3 =   : title       : f.menu "simplewinops"
+
+Button1 =   : icon        : f.function "move-or-iconify"
+Button2 =   : icon        : f.iconify
+
+Button1 =   : iconmgr     : f.iconify
+Button2 =   : iconmgr     : f.iconify
+
+
+IconManagerShow{
+"*"
+}
+ShowIconManager
+IconRegion "200x300+950+2" North East 50 50
+IconifyByUnmapping
+
+
+
+#ShowIconManager    "IconRegion"
+
+#
+# And a menus with the usual things
+#
+menu "winops" {
+"Iconify"				f.iconify
+"Resize"					f.resize
+"Move"					f.move
+"Raise"					f.raise
+"Lower"					f.lower
+"-------------"		f.nop
+"Focus"					f.focus
+"Unfocus"				f.unfocus
+"Show Iconmgr"			f.showiconmgr
+"Hide Iconmgr"			f.hideiconmgr
+"-------------"		f.nop
+"Kill"					f.destroy
+"Delete"					f.delete
+"Lower"					f.lower
+}
+
+menu "simplewinops" {
+"Lower"					f.lower
+"Close"					f.delete
+"Kill"					f.destroy
+}
+
+menu "tools" {
+"Edit .twmrc"			f.exec "exec xterm -e vim ~/.twmrc &"
+"Lock Screen"                   f.exec "exec xlock &"
+"Restart TWM"			f.restart
+"-------------"		f.nop
+"Window..."				f.menu "winops"
+"============="		f.nop
+"Exit TWM"				f.quit
+}
+
+menu "MainMenu" {
+"durbar@slackware"		f.title
+"Raise" f.raise
+"Lower" f.lower
+"Show Iconmgr" f.showiconmgr
+"Hide Iconmgr" f.hideiconmgr
+"Maximize" f.fullzoom
+"Minimize" f.iconify
+"-------------"         f.nop
+"NormalTerminal"		        f.exec "exec xterm -bg black -fg white &"
+"yellowTerm"				f.exec "exec urxvt -bg black -fg yellow &"
+"greenTerm"				f.exec "exec urxvt -bg black -fg green &"
+"blueTerm"				f.exec "exec urxvt -bg black -fg cornflowerblue &"
+"redXTerm"				f.exec "exec urxvt -bg black -fg red &"
+"emacs"				f.exec "exec emacs &"
+"File Manager"			f.exec "exec xfe &"
+"Thunar"			f.exec "exec thunar &"
+"-------------"		f.nop
+"Tools"					f.menu "tools"
+"Close window..."		f.delete
+"-------------"		f.nop
+"ImageJ"                        f.exec "exec /home/durbar/standalone_programs/Fiji.app/ImageJ-linux64 &"
+"Firefox"		        f.exec "firefox &"
+}
