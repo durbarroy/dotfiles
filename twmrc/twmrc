@@ -17,11 +17,12 @@ NoRaiseOnMove
 Zoom 100
 #NoDefaults
 
-TitleFont			"-*-fixed-medium-r-*-*-10-*-*-*-*-*-*-*"
-ResizeFont			"-*-fixed-medium-r-*-*-10-*-*-*-*-*-*-*"
-MenuFont				"-*-fixed-medium-r-*-*-10-*-*-*-*-*-*-*"
-IconFont				"-*-fixed-medium-r-*-*-10-*-*-*-*-*-*-*"
-IconManagerFont		"-*-fixed-medium-r-*-*-10-*-*-*-*-*-*-*"
+
+TitleFont "-adobe-helvetica-bold-r-normal--*-120-*-*-*-*-*-*"
+ResizeFont "-adobe-helvetica-bold-r-normal--*-120-*-*-*-*-*-*"
+MenuFont "-adobe-helvetica-bold-r-normal--*-120-*-*-*-*-*-*"
+IconFont "-adobe-helvetica-bold-r-normal--*-100-*-*-*-*-*-*"
+IconManagerFont "-adobe-helvetica-bold-r-normal--*-100-*-*-*"
 
 Color {
    DefaultBackground     "rgb:0/0/0"
