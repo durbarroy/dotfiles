@@ -59,6 +59,7 @@ Function "move-or-iconify" { f.move f.deltastop f.iconify }
 #RightTitleButton ":resize" = f.resize
 
 Button1 =   : root        : f.menu "MainMenu"
+Button2 =   : root        : f.menu "TwmWindows"
 
 Button1 = m : window|icon : f.function "move-or-lower"
 Button2 = m : window|icon : f.iconify
