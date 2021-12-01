@@ -3,9 +3,9 @@ let mapleader =" "
 call plug#begin('~/.vim/plugged')
 "Plug 'junegunn/goyo.vim'
 "Plug 'julialang/julia-vim'
-#Plug 'vimwiki/vimwiki'
-#Plug 'tbabej/taskwiki'
-#Plug 'plasticboy/vim-markdown'
+"Plug 'vimwiki/vimwiki'
+"Plug 'tbabej/taskwiki'
+"Plug 'plasticboy/vim-markdown'
 "Plug 'xuhdev/vim-latex-live-preview'
 "Plug 'conornewton/vim-latex-preview'
 "Plug 'scrooloose/nerdtree' 
