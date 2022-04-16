@@ -1,0 +1,684 @@
+############################################################################################
+######           TWM 101   or   "theme 101"      101 shades of gray/grey              ######
+############################################################################################
+					
+#TWM: #I started with ruffwoofs twmrc but ultimatley used many other peoples as well then tweaked away. In reality you can't beat the man page. TWM has one of the best man pages I've ever read : > https://www.x.org/releases/X11R7.6/doc/man/man1/twm.1.xhtml
+
+############################################################################################
+######                                       AutoRaise                                ######
+############################################################################################
+######	The issue with AutoRaise is when you raise a window smaller than a currently  ######
+######  open one. As you pass over a larger window it will  autoraise it rehiding     ######
+######  the smaller one. One solution is use with alt-tab which will raise the        ######               
+######  isolated window and place the cursor in it's centre  :disabled                ######                             
+############################################################################################
+
+#AutoRaise
+{
+"abiword"
+"audacity"
+"claws-mail"
+"dillo"
+"geany"
+"geeqie"
+"gnumeric"
+"gnucash"
+"gogglesmm"
+"leafpad"
+"lilyterm"
+"lowriter"
+"localc"
+"mpv"
+"mumble"
+"pidgin"
+"ROX-Filer"
+"runner" 
+"Seamonkey"
+"spacefm"
+"utox"
+"xcalc"
+"xterm" 
+"XTerm"   
+}
+
+-----8<-----8<-----8<-----8<-----8<-----8<-----8<-----8<-----8<-----8<-----8<-----8<-----8<
+
+AutoRelativeResize		# (x)  # Allow resize from any point within the window
+NoTitleFocus			# (x) 	
+NoGrabServer			# (x)
+NoDefaults			# Use own title buttons
+RestartPreviousState		# (x)
+UsePPosition		off	#options; "on" "off "non-zero""
+
+#SqueezeTitle 			#shrinks the titlebar of named applications to a L/H tab 
+{ 
+"abiword"
+"audacity"
+"claws-mail"
+"dillo"
+"geany"
+"geeqie"
+"gnumeric"
+"gnucash"
+"gogglesmm"
+"leafpad"
+"lilyterm"
+"lowriter"
+"localc"
+"mpv"
+"mumble"
+"pidgin"
+"ROX-Filer"
+"runner" 
+"Seamonkey"
+"spacefm"
+"utox"
+"xterm" 
+"XTerm"   
+
+}
+
+############################################################################################
+#######                                  fonts                                        ######
+############################################################################################
+
+TitleFont 			"-*-dejavu sans-bold-*-*-*-12-*-*-*-*-*-*-*"				
+ResizeFont 			"-*-dejavu sans-bold-*-*-*-12-*-*-*-*-*-*-*"
+MenuFont 			"-*-dejavu sans-bold-*-*-*-12-*-*-*-*-*-*-*"
+IconFont 			"-*-dejavu sans-bold-*-*-*-12-*-*-*-*-*-*-*"
+IconManagerFont 		"-*-dejavu sans-bold-*-*-*-12-*-*-*-*-*-*-*"
+
+############################################################################################
+######           Controls shape of cursor under various conditions.                    #####
+############################################################################################
+
+#Cursors 
+{
+Frame			"top_left_arrow"
+Title			"top_left_arrow"
+Icon			"top_left_arrow"
+IconMgr			"top_left_arrow"
+Move			"fleur"
+Resize			"sizing"
+Menu			"sb_right_arrow"
+Button			"hand1"
+Wait			"watch"
+Select			"dot"
+Destroy			"pirate"
+}
+
+-----8<-----8<-----8<-----8<-----8<-----8<-----8<-----8<-----8<-----8<-----8<-----8<-----8<
+
+TitlePadding			26	# padding between title button icon & text (close, resize, etc)
+TitleButtonBorderWidth 		0	# border around icons in title buttons (close, resize, etc)	
+#OpaqueMove				# move opaque window or wireframe (wireframe less cpu)
+RandomPlacement				# Display new windows randomly on the screen as opposed to manual placement.
+IconBorderWidth			0	# (x)		
+ShowIconManager				# Display Icon Manager.
+SortIconManager				# Sort icons in Icon Manager in alphabetical order.
+IconManagerGeometry 	"1600x5+5+5" 8  # icon strip across top of screen
+
+#IconManagers 				# icon managers (strips) for individual applications
+{ 
+"XTerm"  "1600x5+800+5" 6  # icon strip across top of screen    # XTermIconManager
+"lilyterm"  "1600x5+800+25" 6  # icon strip across top of screen # lilytermIconManager
+}
+
+-----8<-----8<-----8<-----8<-----8<-----8<-----8<-----8<-----8<-----8<-----8<-----8<-----8<
+
+#IconRegion			"72x60+0+0" NORTH EAST 72 72  #Desktop-style icons will be put in the following screen region. (we use IconManger instead)
+#BorderTileBackground 		"#0000ff"	#see: NoHighlight
+#BorderTileForeground 		"#00ff00"	#see: NoHighlight
+DecorateTransients	
+MoveDelta 			1    # need to move this much before takes effect
+#NoRaiseOnMove
+#NoRaiseOnResize
+DefaultFunction			f.nop
+NoSaveUnders			# faster to just repaint then save
+ConstrainedMoveTime 0		# Length of time to achieve a "double-click" for constained move. # turn off horizontal/vertical only moving
+NoCaseSensitive			# turn off case-sensitivity in sorting icons
+#Named windows will _not_ go to icon manager, but will have desktop icons.
+#NoStackMode			# prevent hostile clients from hosing display
+#Zoom 				8	# default 8
+
+############################################################################################
+#######                                  functions                                    ######
+############################################################################################
+
+Function "move-or-lower" 	{ f.move f.deltastop f.lower 	}
+Function "move-or-raise" 	{ f.move f.deltastop f.raise 	}
+Function "move-or-iconify" 	{ f.move f.deltastop f.iconify 	}
+Function "deiconify-raise" 	{ f.deiconify f.raise	 	}
+Function "fullscreen"		{ f.fullzoom f.focus f.nop	}
+Function "select"		{ f.iconify f.focus 		}
+
+############################################################################################
+#####                                  Titlebuttons                                  #######
+############################################################################################
+#####           Bindings    Keys :  m=meta(alt)   s=shift   c=control 	               #####
+############################################################################################
+#####           If a title button is defined here then it is shown/used                #####
+############################################################################################
+
+LeftTitleButton			"menu12"	= f.menu "Window Options"
+#LeftTitleButton		"hand"		= f.function "move-or-raise"
+LeftTitleButton 		"dot"	 	= f.delete
+RightTitleButton 		"dot"	 	= f.delete
+RightTitleButton 		"icon"		= f.function "fullscreen" 
+RightTitleButton 		"right_ptr"     = f.resize
+
+-----8<-----8<-----8<-----8<-----8<-----8<-----8<-----8<-----8<-----8<-----8<-----8<-----8<
+
+Button1 = 			  : root 		: f.menu "Window Options"
+Button2 = 			  : root 		: f.menu "TwmWindows"
+Button3 = 			  : root 		: f.menu "defops"
+
+Button1 = 			m : window|icon 	: f.function "move-or-raise"
+Button2 = 			m : window|icon 	: f.iconify
+Button3 = 			m : window|icon 	: f.resize 
+
+Button1 = 			  : title 		: f.function "move-or-raise"
+Button2 = 			  : title 		: f.menu "TwmWindows" 	
+Button3 = 			  : title 		: f.menu "defops" 
+
+Button1 = 			  : icon 		: f.function "move-or-iconify"
+Button2 = 			  : icon 		: f.delete
+Button3 = 			  : icon 		: f.iconify
+
+Button1 = 			  : iconmgr 		: f.function "deiconify-raise"
+Button2 = 			  : iconmgr 		: f.delete
+Button3 = 			  : iconmgr 		: f.iconify
+
+-----8<-----8<-----8<-----8<-----8<-----8<-----8<-----8<-----8<-----8<-----8<-----8<-----8<
+
+"Print"	  = 			  : all 		: ! "scrot -d5 &"
+"Menu"    = 		  	  : all	 		: ! "/usr/bin/env LANG=en_GB.UTF-8 /usr/X11R6/bin/xterm &"
+"Super_R" = 			  : all 		: f.fullzoom
+"Left"    = 			m : all 		: f.warptoiconmgr ""
+"Up"      = 			m : all 		: f.upiconmgr
+"Down"    = 			m : all 		: f.downiconmgr
+"Right"   = 			m : all 		: f.function "select"
+
+"h" 	= 			m | c : all 		: f.lefticonmgr  
+"j" 	= 			m | c : all 		: f.downiconmgr
+"k" 	= 			m | c : all 		: f.upiconmgr
+"l" 	= 			m | c : all 		: f.righticonmgr 
+
+-----8<-----8<-----8<-----8<-----8<-----8<-----8<-----8<-----8<-----8<-----8<-----8<-----8<
+
+"F1" 	= 			m : window|icon  	: f.leftzoom	 
+"F2" 	=			m : window|icon  	: f.rightzoom
+"F3" 	= 			m : window|icon  	: f.bottomzoom
+"F4" 	= 			m : window|icon  	: f.topzoom
+"F5" 	=			m : window|icon  	: f.fullzoom
+"F6" 	= 			m : window|icon  	: f.lower
+"F8" 	= 			m : window|icon  	: f.raise
+"F7" 	= 			m : window|icon  	: f.resize
+"F9" 	= 			m : all  		: f.hideiconmgr
+"F10" 	= 			m : all 		: f.iconify
+"F10" 	= 			s : all 		: f.deiconify
+"F11" 	= 			m : all 		: f.downiconmgr
+"F12" 	= 			m : all 		: f.upiconmgr
+
+
+-----8<-----8<-----8<-----8<-----8<-----8<-----8<-----8<-----8<-----8<-----8<-----8<-----8<
+
+"F1" 	= 			c : all 		: ! "vdesk 1 &"
+"F2" 	= 			c : all 		: ! "vdesk 2 &"
+"F3" 	= 			c : all 		: ! "vdesk 3 &"
+"F4" 	= 			c : all 		: ! "vdesk 4 &"
+"F5" 	= 			c : all 		: ! "vdesk 5 &"
+"F6" 	= 			c : all 		: ! "rox &"
+"F7" 	= 			c : all 		: ! "icecat &"
+"F8" 	= 			c : all		 	: ! "claws-mail &"
+"F9" 	= 			c : all			: ! "gimp &"
+"F10" 	= 			c : all 		: ! "libreoffice &"
+"F11" 	= 			c : all 		: ! "geeqie &"
+"F12" 	= 			c : all 		: ! "xclock -bg gray56 -fg grey34 &"
+
+
+
+############################################################################################
+######                  Alt-Tab no wildcard add applications as required              ######
+############################################################################################
+
+WindowRing 
+{
+"abiword"
+"audacity"
+"claws-mail"
+"dillo"
+"geany"
+"geeqie"
+"gnumeric"
+"gnucash"
+"gogglesmm"
+"leafpad"
+"lilyterm"
+"lowriter"
+"localc"
+"mpv"
+"mumble"
+"pidgin"
+"ROX-Filer"
+"runner" 
+"Seamonkey"
+"spacefm"
+"utox"
+"xcalc"
+"xterm"
+}
+
+-----8<-----8<-----8<-----8<-----8<-----8<-----8<-----8<-----8<-----8<-----8<-----8<-----8<
+
+"Tab" =				m     : all 		: f.warpring "next"
+"Tab" = 			m | s : all 		: f.warpring "prev"
+
+
+############################################################################################
+######                                    Icon manager	 	                     #######
+############################################################################################
+###### 		Iconified windows icons can be used if ForceIcons is set	     #######
+###### 		IconDirectory 		"/home/user/./path/to/pixmaps"               #######
+###### 		IconifyByUnmapping		# No Icons shown                     #######				   #
+############################################################################################
+
+##DontIconifyByUnmapping		{ "xclock" "Virtual Desktop" } 
+IconifyByUnmapping
+
+IconManagerDontShow 
+{
+"stalonetray" 
+"TWM Icon Manager" 
+"xmessage" 
+"xload" 
+"oclock" 
+"xclock" 
+"WorkSpaceManager" 
+"xeyes"
+"gkrellm"
+"bubblemon"
+"wmbubble"
+"wmifinfo"
+"bashrun2"
+"wmwork"
+"wmCalClock"
+"wmtime"
+"wmMoonClock"
+"wmfishtime"
+"wmflame"
+"fishmon"   #"wmfishtime"
+"dclock" 
+}
+
+
+NoTitle 			# No title on top of application window
+{ 
+"stalonetray" 
+"TWM Icon Manager" 
+"xmessage" 
+"xload" 
+"oclock" 
+"xclock" 
+"WorkSpaceManager" 
+"xeyes"
+"gkrellm"
+"bubblemon"
+"wmbubble"
+"wmifinfo"
+"bashrun2"
+"wmwork"
+"wmCalClock"
+"wmtime"
+"wmMoonClock"
+"wmfishtime"
+"wmflame"
+"fishmon"   #"wmfishtime"
+"dclock" 
+}
+
+NoBorder 
+{ 			
+"stalonetray" 
+"TWM Icon Manager" 
+"xmessage" 
+"xload" 
+"oclock" 
+"xclock" 
+"WorkSpaceManager" 
+"xeyes"
+"gkrellm"
+"bubblemon"
+"wmbubble"
+"wmifinfo"
+"bashrun2"
+"wmwork"
+"wmCalClock"
+"wmtime"
+"wmMoonClock"
+"wmfishtime"
+"wmflame"
+"fishmon"   #"wmfishtime"
+"dclock" 			
+}
+
+NoHighlight 			# global
+
+IconManagerDontShow 		# Named windows will not be shown in Icon Manager	
+{ 
+"stalonetray" 
+"TWM Icon Manager" 
+"xmessage" 
+"xload" 
+"oclock" 
+"xclock" 
+"WorkSpaceManager" 
+"xeyes"
+"gkrellm"
+"bubblemon"
+"wmbubble"
+"wmifinfo"
+"bashrun2"
+"wmwork"
+"wmCalClock"
+"wmtime"
+"wmMoonClock"
+"wmfishtime"
+"wmflame"
+"fishmon"   #"wmfishtime"
+"dclock"
+}
+
+###########################################################################################################
+######			          colour/color "theme 101"       				     ######
+###########################################################################################################
+######   This config is based on the colour/color grey of which there are 101 shades apparently.     ######
+###########################################################################################################
+
+Color
+{
+
+    # Title default Title colour ... then with selective programs having other colours
+    # Use xprop and/or xwininfo commands to identify WM names such as XTerm ...etc.
+    MenuTitleBackground 					"grey34" 
+    MenuTitleForeground 					"grey56"
+    DefaultBackground						"#494949"
+    DefaultForeground						"#DCDCDC"
+    BorderColor 						"#494949" 
+    TitleBackground 						"#494949" 
+    TitleForeground 						"#fbfbfb"   
+    MenuBackground 						"#494949"
+    MenuForeground 						"#DCDCDC"
+    MenuBorderColor 						"#494949"
+    IconBackground						"#494949" 
+    MenuShadowColor						"#0a0a0a"
+    IconForeground						"#DCDCDC" 
+    IconBorderColor 						"#494949"
+    IconManagerBackground					"#494949" 
+    IconManagerForeground					"#DCDCDC" 
+    IconManagerHighlight					"#fbfbfb"
+}
+
+###########################################################################################################
+######					          Menus         				      #####
+###########################################################################################################
+######	               ! string	       This is an abbreviation for f.exec string.		      #####
+###########################################################################################################
+
+
+menu "defops"         	      	#( "#DCDCDC" : "#494949"  )# ... no value and inverts menu items colour
+
+{
+"MAIN MENU"			( "grey56"  : "grey34"  )	f.title
+"runner"			( "#DCDCDC" : "#494949" )	! "runner -r &"
+""				( "grey56"  : "grey34"  )	f.title
+"rox"				( "#DCDCDC" : "#494949" )	! "rox &"
+"Spacefm"			( "#DCDCDC" : "#494949" )	! "spacefm &"
+"Browser" 			( "#DCDCDC" : "#494949" )	! "seamonkey &"
+"Leafpad" 			( "#DCDCDC" : "#494949" )	! "leafpad &"
+"Calc" 		    		( "#DCDCDC" : "#494949" )	! "xcalc &"
+"xterm"				( "#DCDCDC" : "#494949" )	!"/usr/bin/env LANG=en_GB.UTF-8 /usr/X11R6/bin/xterm &"
+"lilyterm"			( "#DCDCDC" : "#494949" )	!"/usr/bin/env LANG=en_GB.UTF-8 /usr/bin/lilyterm -T Lilyterm &"
+"Weather"			( "#DCDCDC" : "#494949" ) 	! "/usr/bin/env LANG=en_GB.UTF-8 /usr/X11R6/bin/xterm -geometry 130x40+5+35 -bg gray14 -fg gray83 -hold -e curl wttr.in/Dundee &"
+
+"Clock"				( "#DCDCDC" : "#494949" ) 	! "xclock -bg grey28 -fg grey83 -digital -geometry '+1680+5' -padding 2 &"
+"fittstool"			( "#DCDCDC" : "#494949" ) 	! "fittstool &"
+""				( "grey56"  : "grey34"  )	f.title
+"Workspace 1"    		( "#DCDCDC" : "#494949" )   	! "/usr/bin/vdesk 1; vdesk &"
+"Workspace 2"    		( "#DCDCDC" : "#494949" )   	! "/usr/bin/vdesk 2; vdesk &"
+"Workspace 3"    		( "#DCDCDC" : "#494949" )    	! "/usr/bin/vdesk 3; vdesk &"
+"Workspace 4"    		( "#DCDCDC" : "#494949" )    	! "/usr/bin/vdesk 4; vdesk &"
+"Workspace 5"    		( "#DCDCDC" : "#494949" )	! "/usr/bin/vdesk 5; vdesk &"
+""				( "grey56"  : "grey34"  )	f.title
+"Window Options"		( "#DCDCDC" : "#494949" )	f.menu "Window Options"
+"Office" 			( "#DCDCDC" : "#494949" )	f.menu "Office"
+"Graphics" 			( "#DCDCDC" : "#494949" )	f.menu "Graphics"
+"Internet" 			( "#DCDCDC" : "#494949" )	f.menu "Internet"
+"Media" 			( "#DCDCDC" : "#494949" )	f.menu "Media"
+"Utilities"  			( "#DCDCDC" : "#494949" )	f.menu "Utilities"
+"Preferences" 			( "#DCDCDC" : "#494949" )	f.menu "Preferences"
+""				( "grey56"  : "grey34"  )	f.title
+"Restart"			( "#DCDCDC" : "#494949" )	f.restart
+""				( "grey56"  : "grey34"  )	f.title
+"Exit"				( "#DCDCDC" : "#494949" )	f.quit
+}
+
+menu "Office"
+{
+"LO-writer"			( "#DCDCDC" : "#494949" )	! "lowriter &"
+"LO-calc"			( "#DCDCDC" : "#494949" )	! "localc &"
+"LO-draw"			( "#DCDCDC" : "#494949" )	! "lodraw &"
+"LO-impress"			( "#DCDCDC" : "#494949" )	! "loimpress &"
+"Abiword"			( "#DCDCDC" : "#494949" )	! "abiword&"
+"Gnumeric"			( "#DCDCDC" : "#494949" )	! "gnumeric &"
+"Gnucash"			( "#DCDCDC" : "#494949" )	! "gnucash &"
+"Xournal"			( "#DCDCDC" : "#494949" )	! "xournal &"
+}
+
+menu "Graphics"
+{
+"gimp"				( "#DCDCDC" : "#494949" )	! "/usr/bin/vdesk 2 && gimp &"
+"Inkscape"			( "#DCDCDC" : "#494949" )	! "/usr/bin/vdesk 3 && inkscape &"
+"Sodipodi" 			( "#DCDCDC" : "#494949" )	! "/usr/bin/vdesk 4 && sodipodi &"
+"Dia" 				( "#DCDCDC" : "#494949" )	! "/usr/bin/vdesk 5 && dia &"
+"Mtpaint" 			( "#DCDCDC" : "#494949" )	! "mtpaint &"
+"Geeqie" 			( "#DCDCDC" : "#494949" )	! "geeqie &"
+"Gtkam" 			( "#DCDCDC" : "#494949" )	! "gtkam &"
+"Xsane" 			( "#DCDCDC" : "#494949" )	! "xsane &"
+}
+
+menu "Internet"
+{
+"Browsers"			( "grey56"  : "grey34"  )	f.title
+"Seamonkey" 			( "#DCDCDC" : "#494949" )	! "seamonkey &"
+"Netsurf" 			( "#DCDCDC" : "#494949" )	! "netsurf-gtk &"
+"Dillo" 			( "#DCDCDC" : "#494949" )	! "dillo &"
+"Links" 			( "#DCDCDC" : "#494949" )	! "xterm -T links -hold -e links www.duckduckgo.com &"
+"Lynx" 	 			( "#DCDCDC" : "#494949" )	! "xterm -T lynx -hold -e lynx www.duckduckgo.com &"
+"Transfer"			( "grey56"  : "grey34"  )	f.title
+"Gftp" 				( "#DCDCDC" : "#494949" )	! "gftp &"
+"Lfpt" 	 			( "#DCDCDC" : "#494949" )	! "xterm -T lftp -hold -e lftp &"
+"Transmission" 			( "#DCDCDC" : "#494949" )	! "transmission-gtk &"
+"Message"			( "grey56"  : "grey34"  )	f.title
+"Pidgin" 			( "#DCDCDC" : "#494949" )	! "pidgin &"
+"Mumble" 			( "#DCDCDC" : "#494949" )	! "mumble &"
+"Utox" 				( "#DCDCDC" : "#494949" )	! "utox &"
+"Weechat" 			( "#DCDCDC" : "#494949" )	! "xterm -T Weechat -hold -e weechat-curses &"
+"Irssi" 			( "#DCDCDC" : "#494949" )	! "xterm -T Irssi -hold -e irssi  &"
+"E-Mail"			( "grey56"  : "grey34"  )	f.title
+"Claws-mail" 			( "#DCDCDC" : "#494949" )	! "claws-mail &"
+"Neomutt" 			( "#DCDCDC" : "#494949" )	! "xterm -T Irssi -hold -e neomutt &"
+"Alpine" 			( "#DCDCDC" : "#494949" )	! "xterm -hold -e alpine &"
+"Connect"			( "grey56"  : "grey34"  )	f.title
+"Wicd" 				( "#DCDCDC" : "#494949" )	! "wicd-gtk &"
+}
+
+menu "Media"
+{
+"MPV" 	  			( "#DCDCDC" : "#494949" )	! "mpv &"
+"Audacity" 	  		( "#DCDCDC" : "#494949" )	! "audacity &"
+"Mhwaveedit" 	     	  	( "#DCDCDC" : "#494949" )	! "mhwaveedit &"
+"Gogglesmm" 	  		( "#DCDCDC" : "#494949" )	! "gogglesmm &"
+"Cmus" 	       			( "#DCDCDC" : "#494949" )	! "xterm -T -hold -e cmus &"
+"Cplay" 	  		( "#DCDCDC" : "#494949" )	! "xterm -T -hold -e cplay  &"
+}
+
+menu "Utilities"
+{
+"Utilities"			( "grey56"  : "grey34"  )	f.title
+"kb-map-GB" 			( "#DCDCDC" : "#494949" ) 	!"setxkbmap -model pc105 -layout gb -variant ,qwerty &"
+"xedit" 			( "#DCDCDC" : "#494949" )	!"xedit &"
+"inxi" 				( "#DCDCDC" : "#494949" )	!"lilyterm --hold -title inxi --execute inxi -AbCDGimswxxx &"
+"ping" 				( "#DCDCDC" : "#494949" )	!"lilyterm --hold -title inxi --execute ping -c 10 gnu.org &"
+"xfontsel" 			( "#DCDCDC" : "#494949" )	!"xfontsel &"
+"xcalendar" 			( "#DCDCDC" : "#494949" )	!"xterm -geometry 80x40+100+100 -hold -e cal -y &"
+"xload" 			( "#DCDCDC" : "#494949" )	!"xload -nolabel -bg grey28 -fg grey83 -geometry =570x24+1097+5 &"
+"xclipboard" 			( "#DCDCDC" : "#494949" )	!"xclipboard &"
+"Top"				( "#DCDCDC" : "#494949" )	!"xterm -T Top -n Top -e top &"
+"Xman"				( "#DCDCDC" : "#494949" )	!"xman &"
+"xclock" 			( "#DCDCDC" : "#494949" )	!"xclock -bg grey28 -fg grey83 -digital -geometry '-5-5' -padding 2 &"
+"Xmag"				( "#DCDCDC" : "#494949" )	!"xmag &"
+"xwd|xwud"			( "#DCDCDC" : "#494949" )	!"xwd -root -out /tmp/screendump;xwud -in /tmp/screendump -raw &"
+"Editres"			( "#DCDCDC" : "#494949" )	!"editres &"
+"XLock"				( "#DCDCDC" : "#494949" )	!"xlock -mode random &"
+"Reset X defaults" 		( "#DCDCDC" : "#494949" )	!"xrdb -load $HOME/.Xdefaults"
+"Show Iconmgr"			( "#DCDCDC" : "#494949" )	f.showiconmgr
+"Hide Iconmgr"			( "#DCDCDC" : "#494949" )	f.hideiconmgr
+"wmbubble" 			( "#DCDCDC" : "#494949" )	!"xterm -e wmbubble &"
+"wmifinfo" 			( "#DCDCDC" : "#494949" )	!"wmifinfo &"
+"xev" 				( "#DCDCDC" : "#494949" )	!"xterm -e xev &"
+"xwininfo" 			( "#DCDCDC" : "#494949" )	!"xterm -geometry 40x10+10+200 -sb -fa DejaVu:size=12:boldxterm -hold -e xwininfo &"
+"xprop" 			( "#DCDCDC" : "#494949" )	!"xterm -geometry 40x10+10+200 -sb -fa DejaVu:size=12:boldxterm -hold -e xprop &"
+"Identify"			( "#DCDCDC" : "#494949" )	f.identify
+"keyboard mappings"		( "#DCDCDC" : "#494949" )	!"xterm -hold -e xmodmap &"
+}
+
+menu  "Preferences" 
+{
+"Preferences"   		( "grey56"  : "grey34"  )	f.title
+"Bell Loud"     		( "#DCDCDC" : "#494949" )	!"xset b 80&"
+"Bell Normal"   		( "#DCDCDC" : "#494949" )	!"xset b on&"
+"Bell Off"      		( "#DCDCDC" : "#494949" )	!"xset b off&"
+"Click Loud"    		( "#DCDCDC" : "#494949" )	!"xset c 80&"
+"Click Soft"    		( "#DCDCDC" : "#494949" )	!"xset c on&"
+"Click Off"     		( "#DCDCDC" : "#494949" )	!"xset c off&"
+"Lock On"       		( "#DCDCDC" : "#494949" )	!"xset led on&"
+"Lock Off"      		( "#DCDCDC" : "#494949" )	!"xset led off&"
+"Mouse Fast"    		( "#DCDCDC" : "#494949" )	!"xset m 4 2&"
+"Mouse Normal"  		( "#DCDCDC" : "#494949" )	!"xset m 2 5&"
+"Mouse Slow"    		( "#DCDCDC" : "#494949" )	!"xset m 1 1&"
+"Monitor Power Saving OFF"	( "#DCDCDC" : "#494949" )	!"xset s off;xset -dpms&"
+"Monitor Power Saving ON"	( "#DCDCDC" : "#494949" )	!"xset s on;xset +dpms&"
+}
+
+menu "Window Options"
+{
+"Windows Options"		( "grey56"  : "grey34"  )	f.title
+"Resize"			( "#DCDCDC" : "#494949" )	f.resize
+""				( "grey56"  : "grey34"  )	f.title
+"Raise"				( "#DCDCDC" : "#494949" )	f.raise
+"Lower"				( "#DCDCDC" : "#494949" )	f.lower
+"Move"				( "#DCDCDC" : "#494949" )	f.move
+"Iconify"			( "#DCDCDC" : "#494949" )	f.iconify
+"Delete"			( "#DCDCDC" : "#494949" )	f.delete
+""				( "grey56"  : "grey34"  )	f.title
+"Kill"      			( "#DCDCDC" : "#494949" )   	f.destroy
+}
+
+###########################################################################################################
+######			      all avalible variables. see man twm       	   		      #####
+###########################################################################################################
+
+#AutoRaise { win-list }
+#AutoRelativeResize	# Allow resize from any point within the window
+#BorderColor string [{ wincolorlist }]
+#BorderTileBackground string [{ wincolorlist }]
+#BorderTileForeground string [{ wincolorlist }]
+#BorderWidth pixels
+#ButtonIndent pixels
+#ClientBorderWidth  	# Take border width from initial border width of window
+#Color { colors-list }
+#ConstrainedMoveTime milliseconds
+#Cursors { cursor-list }
+#DecorateTransients	# Transient windows should have titlebars
+#DefaultBackground string
+#DefaultForeground string
+#DontIconifyByUnmapping { win-list }
+#DontMoveOff     # Do not allow windows to be moved of the screen
+#DontSqueezeTitle [{ win-list }]
+#ForceIcons      # Force use of "Icons" list instead of client-supplied one
+#FramePadding pixels
+#Grayscale { colors }
+#IconBackground string [{ win-list }]
+#IconBorderColor string [{ win-list }]
+#IconBorderWidth pixels
+#IconDirectory string
+#IconFont string
+#IconForeground string [{ win-list }]
+#IconifyByUnmapping [{ win-list }]
+#IconManagerBackground string [{ win-list }]
+#IconManagerDontShow [{ win-list }]
+#IconManagerFont string
+#IconManagerForeground string [{ win-list }]
+#IconManagerGeometry string [ columns ]
+#IconManagerHighlight string [{ win-list }]
+#IconManagers { iconmgr-list }
+#IconManagerShow { win-list }
+#IconRegion geomstring vgrav hgrav gridwidth gridheight
+#Icons { win-list }
+#InterpolateMenuColors
+#MakeTitle { win-list }
+#MaxWindowSize string
+#MenuBackground string
+#MenuBorderColor string
+#MenuBorderWidth pixels
+#MenuFont string
+#MenuForeground string
+#MenuShadowColor string
+#MenuTitleBackground string
+#MenuTitleForeground string
+#Monochrome { colors }
+#MoveDelta pixels
+#NoBackingStore	  # Backing store for twm's menus
+#NoCaseSensitive     # For sorting icon names in icon manager
+#NoDefaults
+#NoGrabServer
+#NoHighlight [{ win-list }]
+#NoIconManagers
+#NoMenuShadows
+#NoRaiseOnDeiconify
+#NoRaiseOnMove
+#NoRaiseOnResize
+#NoRaiseOnWarp
+#NoSaveUnders
+#NoStackMode [{ win-list }]
+#NoTitle [{ win-list }]
+#NoTitleFocus
+#NoTitleHighlight [{ win-list }]
+#OpaqueMove
+#Pixmaps { pixmaps }
+#Priority priority
+#RandomPlacement
+#ResizeFont string
+#RestartPreviousState
+#SaveColor { colors-list }
+#ShowIconManager
+#SortIconManager
+#SqueezeTitle [{ squeeze-list }]
+#StartIconified [{ win-list }]
+#TitleBackground string [{ win-list }]
+#TitleButtonBorderWidth pixels
+#TitleFont string
+#TitleForeground string [{ win-list }]
+#TitlePadding pixels
+#UnknownIcon string
+#UsePPosition string
+#WarpCursor [{ win-list }]
+#WindowRing { win-list }
+#WarpUnmapped
+#XorValue number
+#Zoom [ count ]
+######### special rtfm ##########
+#DefaultFunction function
+#WindowFunction function
+
